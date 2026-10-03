@@ -1,0 +1,41 @@
+# Keeps the Linear copies of the handbook and every repo's decision records in
+# sync with GitHub main. Idempotent: only changed docs are rewritten, and it
+# never touches or deletes Linear docs it didn't publish.
+name: Publish handbook to Linear
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/handbook/**", "docs/decisions/**", "server/handbook/**"]
+  schedule:
+    # Daily, to pick up decision records merged in the other three repos.
+    - cron: "30 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-handbook
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Publish
+        env:
+          LINEAR_ACTIONS_API_KEY: ${{ secrets.LINEAR_ACTIONS_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$LINEAR_ACTIONS_API_KEY" ]; then
+            echo "::notice::LINEAR_ACTIONS_API_KEY secret not set; skipping publish."
+            exit 0
+          fi
+          npm run -s handbook:publish -- --apply

@@ -1,0 +1,69 @@
+/* Liquid brand tokens, tuned for an editorial "wire desk" reading surface. */
+:root {
+  --color-accent: #ff292e;
+  --color-accent-strong: #d42126;
+  --color-accent-wash: #fff0f0;
+  --color-ink: #16181d;
+  --color-text: #374151;
+  --color-muted: #6b7280;
+  --color-faint: #9aa1ab;
+  --color-paper: #faf8f5;
+  --color-surface: #ffffff;
+  --color-rule: #e7e3dd;
+  --color-rule-strong: #d6d0c7;
+
+  /* Semantic status colours for sources. */
+  --status-good: #15803d;
+  --status-good-wash: #ecfdf3;
+  --status-wait: #b45309;
+  --status-wait-wash: #fffbeb;
+  --status-bad: #d42126;
+  --status-bad-wash: #fff0f0;
+  --status-neutral: #6b7280;
+  --status-neutral-wash: #f4f2ee;
+
+  /* Chart palette: validated with the dataviz checker against --color-paper (all checks pass).
+     Categorical slots never reuse status hues; status is reserved for passed/failed. */
+  --chart-series-1: #2a78d6;
+  --chart-series-2: #eb6834;
+  --chart-good: #0ca30c;
+  --chart-critical: #d03b3b;
+  --chart-grid: #ebe7e1;
+  --chart-axis: #cfc9bf;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-hero: clamp(2.4rem, 1.4rem + 4.2vw, 4.6rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 0 rgba(22, 24, 29, 0.04), 0 12px 32px -18px rgba(22, 24, 29, 0.28);
+  --shadow-composer: 0 1px 0 rgba(22, 24, 29, 0.05), 0 22px 48px -24px rgba(212, 33, 38, 0.35);
+
+  --duration-fast: 150ms;
+  --duration-normal: 320ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --hero-width: 640px;
+  --thread-width: 720px;
+  --sidebar-width: 272px;
+  --rail-width: 52px;
+  --topbar-height: 60px;
+}

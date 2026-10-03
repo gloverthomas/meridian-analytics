@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# No live keys in CI, ever: Grok is mocked in unit/contract tests and E2E runs in sample mode.
+env:
+  XAI_API_KEY: ""
+  LINEAR_API_KEY: ""
+  GITHUB_TOKEN: ""
+  POSTHOG_PROJECT_TOKEN: ""
+  POSTHOG_PERSONAL_API_KEY: ""
+  SENTRY_AUTH_TOKEN: ""
+  WORKFLOW_API_TOKEN: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Unit + contract tests (coverage ≥ 80%)
+        run: npm run test:coverage 2>&1 | tee test-output.log
+      - name: Fail if anything key-shaped appears in test output
+        run: |
+          if grep -Eq '(xai-[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|lin_api_[A-Za-z0-9]{20,})' test-output.log; then
+            echo "::error::Secret-shaped string found in test output"; exit 1
+          fi
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

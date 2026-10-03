@@ -1,0 +1,29 @@
+{
+  "display_information": {
+    "name": "Meridian Insights",
+    "description": "Ask about tickets, PRs, CI, errors, product usage and the Cursor workflow — with sources.",
+    "background_color": "#16181d"
+  },
+  "features": {
+    "app_home": { "home_tab_enabled": false, "messages_tab_enabled": true, "messages_tab_read_only_enabled": false },
+    "bot_user": { "display_name": "Meridian Insights", "always_online": true }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": ["app_mentions:read", "chat:write", "channels:history", "groups:history", "im:history", "users:read"]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "request_url": "http://localhost:5173/api/v1/slack/events",
+      "bot_events": ["app_mention", "message.im"]
+    },
+    "interactivity": {
+      "is_enabled": true,
+      "request_url": "http://localhost:5173/api/v1/slack/interactions"
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}

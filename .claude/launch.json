@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "insights", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:all"], "port": 5173 },
+    {
+      "name": "insights-actions-preview",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["LINEAR_ACTIONS_API_KEY=placeholder-proposals-only", "npm", "run", "dev:all"],
+      "port": 5173
+    }
+  ]
+}
