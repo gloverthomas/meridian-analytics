@@ -39,7 +39,7 @@ export function AccessGate({ onUnlocked }: AccessGateProps) {
     <main className="gate">
       <p className="kicker">
         <span className="kicker-dot" aria-hidden="true" />
-        Liquid demo · private
+        Meridian demo · private
       </p>
       <h1>Meridian Insights</h1>
       <p>Enter the access code you were given to continue.</p>

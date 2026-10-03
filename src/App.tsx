@@ -143,7 +143,7 @@ function Workspace({ orgs, prompts }: { orgs: Organisation[]; prompts: Suggested
           <a className="brand" href="/" aria-label="Meridian Insights home">
             <img src="/brand/liquid-mark.png" alt="" width={28} height={28} />
             <span className="brand-name">
-              Liquid <span>Insights</span>
+              Meridian <span>Insights</span>
             </span>
           </a>
         </div>
